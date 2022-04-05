@@ -17,8 +17,8 @@ const parseAlbum = (album: any) => ({
   date: new Date(album.Date),
   artist: album.Artist,
   album: album.Album,
-  new_to_me: album["New to me?"] === 'TRUE',
-  comments: album.Comments,
+  new_to_me: true,
+  comments: undefined,
 })
 
 const albumsList = (await readCSV(filename)).filter(dropUndefined).map(parseAlbum);
@@ -33,7 +33,7 @@ const getDiscogsData = async ({ artist, album }: albumType) => await discogs.sea
 
 const dayString = (date: Date) => date.toISOString().split('T')[0];
 
-await writeJSON(`data/aaad.json`, albumsList.map(d => ({ id: dayString(d.date), ...d })));
+await writeJSON(`data/album-of-the-week.json`, albumsList.map(d => ({ id: dayString(d.date), ...d })));
 
 for (const album of albumsList.filter(dropUndefined).map(parseAlbum)) {
   const discogsInfo = await getDiscogsData(album);
