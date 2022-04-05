@@ -35,7 +35,7 @@ const dayString = (date: Date) => date.toISOString().split('T')[0];
 
 await writeJSON(`data/album-of-the-week.json`, albumsList.map(d => ({ id: dayString(d.date), ...d })));
 
-for (const album of albumsList.filter(dropUndefined).map(parseAlbum)) {
+for (const album of albumsList) {
   const discogsInfo = await getDiscogsData(album);
   const albumData = {
     ...album,
