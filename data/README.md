@@ -1,0 +1,1 @@
+The data is downloaded from a Google Sheet that I maintain.
