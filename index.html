@@ -33,9 +33,15 @@
       margin-bottom: 1em;
     }
 
-    ul {
+    .album-list {
       padding-top: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: left;
     }
+    .album { width: 10em; height: 10em;}
+    img { max-width: 100%; }
   </style>
 </head>
 
@@ -58,16 +64,17 @@
       <label for="search-box">Search </label>
       <input id="search-box" type="text">
     </form>
-    <ul id="albums"></ul>
+    <div id="albums" class="album-list">
+    </div>
   </main>
   <script>
     (async (root, MiniSearch) => {
       const albums = await fetch(`${root}/data/album-of-the-week.json`).then(request => request.json());
-      const minisearch = new MiniSearch({ fields: ['artist', 'album'], storeFields: ['artist', 'album'] });
+      const minisearch = new MiniSearch({ fields: ['artist', 'album'], storeFields: ['artist', 'album', 'cover_image'] });
       minisearch.addAll(albums);
       const resultList = document.querySelector('#albums');
 
-      const formatResult = ({ artist, album }) => `<li>${artist}: ${album}</li>`;
+      const formatResult = ({ artist, album, cover_image }) => `<div class="album" style="background-image: url(${ cover_image }); background-size: cover;"><p>${ artist }</p><p>${ album }</p></div>`;
       const resetList = () => {
         resultList.innerHTML = albums.map(formatResult).join('');
       }
