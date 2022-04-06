@@ -47,7 +47,7 @@ export class Discogs {
   async search(artist: string, title: string) {
     const url = new URL('/database/search', this.urlBase);
     const q = url.searchParams;
-    q.append('type', 'master');
+    // q.append('type', 'master');
     q.append('artist', artist);
     q.append('release_title', title);
     return this.request(url.toString());
