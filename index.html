@@ -8,48 +8,14 @@
   <title>Album Of The Week</title>
   <link rel="icon" type="image/png" href="/assets/images/sad-viking-favicon-64.png">
   <script src="https://cdn.jsdelivr.net/npm/minisearch@3.1.0/dist/umd/index.min.js"></script>
-  <style>
-    * {
-      font-size: 1em;
-      font-weight: normal;
-      margin: 0;
-    }
-
-    body,
-    input {
-      font-family: monospace;
-    }
-
-    body>* {
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: paleturquoise;
-      padding: 1em 1em;
-      box-sizing: border-box;
-    }
-
-    section {
-      margin-bottom: 1em;
-    }
-
-    .album-list {
-      padding-top: 1em;
-      display: flex;
-      gap: 1em;
-      flex-wrap: wrap;
-      justify-content: left;
-    }
-    .album { width: 10em; height: 10em;}
-    img { max-width: 100%; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <header>
-    <h1>Album Of The Week</h1>
+<body class="font-sans bg-sky-400">
+  <header class="max-w-screen-sm mx-auto my-8">
+    <h1 class="text-5xl font-extralight">Album Of The Week</h1>
   </header>
-  <main id="main">
+  <main id="main" class="max-w-screen-sm mx-auto my-4">
     <header>
       <p>
         During 2021, I listened to an album a day.
@@ -60,11 +26,11 @@
         This is a list of the albums of the week.
       </p>
     </header>
-    <form id="search-form">
-      <label for="search-box">Search </label>
+    <form id="search-form" class="my-4 flex">
+      <label for="search-box" class="w-16">Search</label>
       <input id="search-box" type="text">
     </form>
-    <div id="albums" class="album-list">
+    <div id="albums" class="w-full flex items-start justify-center py-4 gap-2 flex-wrap">
     </div>
   </main>
   <script>
@@ -74,7 +40,14 @@
       minisearch.addAll(albums);
       const resultList = document.querySelector('#albums');
 
-      const formatResult = ({ artist, album, cover_image }) => `<div class="album" style="background-image: url(${ cover_image }); background-size: cover;"><p>${ artist }</p><p>${ album }</p></div>`;
+      const formatResult = ({ artist, album, cover_image }) => `
+        <article class="h-64 w-64 relative" style="background-image: url(${ cover_image }); background-size: cover;">
+          <hgroup class="bg-zinc-900 bg-opacity-60 text-zinc-50 p-2 absolute bottom-0 left-0 right-0">
+            <h1 class="font-extralight text-2xl">${ artist }</h1>
+            <h2 class="text-lg my-0">${ album }</h2>
+          </hgroup>
+        </article>
+        `;
       const resetList = () => {
         resultList.innerHTML = albums.map(formatResult).join('');
       }

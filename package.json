@@ -7,6 +7,10 @@
     "lib": "lib"
   },
   "scripts": {
+    "build": "npx tailwindcss -i ./src/style.css -o ./style.css",
+    "dev": "npx concurrently \"npm:watch\" \"npm:run\"",
+    "run": "npx site .",
+    "watch": "npm run build -- --watch",
     "test": "jest"
   },
   "repository": {
@@ -18,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/gilesdring/album-of-the-week/issues"
   },
-  "homepage": "https://github.com/gilesdring/album-of-the-week#readme"
+  "homepage": "https://github.com/gilesdring/album-of-the-week#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.0.24"
+  }
 }
