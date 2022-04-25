@@ -11,11 +11,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="font-sans bg-sky-400">
-  <header class="max-w-screen-sm mx-auto my-8">
+<body class="font-sans bg-emerald-50 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-50">
+  <header class="content-column my-8">
     <h1 class="text-5xl font-extralight">Album Of The Week</h1>
   </header>
-  <main id="main" class="max-w-screen-sm mx-auto my-4">
+  <main id="main" class="content-column my-4">
     <header>
       <p>
         During 2021, I listened to an album a day.
@@ -26,9 +26,9 @@
         This is a list of the albums of the week.
       </p>
     </header>
-    <form id="search-form" class="my-4 flex">
-      <label for="search-box" class="w-16">Search</label>
-      <input id="search-box" type="text">
+    <form id="search-form" class="my-4 max-w-sm mx-auto flex gap-6 items-center">
+      <label for="search-box" class="block">Search</label>
+      <input id="search-box" class="flex-grow border-green-800 p-2 text-green-800 dark:border-transparent border-2" type="text">
     </form>
     <div id="albums" class="w-full flex items-start justify-center py-4 gap-2 flex-wrap">
     </div>
@@ -41,7 +41,7 @@
       const resultList = document.querySelector('#albums');
 
       const formatResult = ({ artist, album, cover_image }) => `
-        <article class="h-64 w-64 relative" style="background-image: url(${ cover_image }); background-size: cover;">
+        <article class="relative bg-cover w-96 aspect-square" style="background-image: url(${ cover_image });">
           <hgroup class="bg-zinc-900 bg-opacity-60 text-zinc-50 p-2 absolute bottom-0 left-0 right-0">
             <h1 class="font-extralight text-2xl">${ artist }</h1>
             <h2 class="text-lg my-0">${ album }</h2>

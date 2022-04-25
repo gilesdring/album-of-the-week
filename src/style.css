@@ -5,3 +5,8 @@
 p {
   @apply my-2;
 }
+
+.content-column {
+  @apply px-4;
+  @apply lg:max-w-screen-lg lg:mx-auto;
+}
