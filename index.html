@@ -55,7 +55,7 @@
       resetList();
 
       const search = (term) => {
-        if (!term) {
+        if (!term || term === '') {
           resetList();
           return;
         }
