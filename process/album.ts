@@ -7,7 +7,7 @@ const discogs = new Discogs(config.discogs.token);
 
 const filename = Deno.args[0];
 
-type albumType = {
+type AlbumDetails = {
   artist: string;
   album: string;
 }
@@ -22,13 +22,24 @@ const parseAlbum = (album: any) => ({
 
 const albumsList = (await readCSV(filename)).filter(dropUndefined).map(parseAlbum);
 
-const getDiscogsData = async ({ artist, album }: albumType) => await discogs.search(artist, album)
-  .then((response: any) => response.results[0])
-  .then((data: any) => (data ? { year: data.year, discogs_id: data.id, cover_image: data.cover_image, discogs_title: data.title } : undefined))
-  .catch(error => {
+function uniqueItems<T>(array: T[]) {
+  const set = new Set(array.filter(x => x));
+  return Array.from(set);
+}
+
+async function getDiscogsData({ artist, album }: AlbumDetails) {
+  let data;
+  try {
+    const response = await discogs.search(artist, album);
+    data = response.results;
+  } catch(error) {
     console.error(error.message);
-    return {};
-  });
+    return {}
+  }
+  const masterIds = uniqueItems<string>(data.map((x: any) => x.master_id));
+  const image = await discogs.getPrimaryImage(masterIds[0]);
+  return data.map((data: any) => (data ? { year: data.year, discogs_id: data.id, cover_image: image || data.cover_image, discogs_title: data.title } : undefined))[0];
+}
 
 const dayString = (date: Date) => date.toISOString().split('T')[0];
 
