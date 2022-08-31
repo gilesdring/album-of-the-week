@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { readCSV, writeJSON } from 'https://deno.land/x/flat@0.0.15/mod.ts';
 import config from '../lib/config.ts';
 import { Discogs } from '../lib/discogs.ts';

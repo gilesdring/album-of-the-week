@@ -9,8 +9,8 @@ export class Discogs {
     this.wait = false;
   }
   
-  async canProgress(): Promise<void> {
-    if (!this.wait) return;
+  canProgress(): Promise<void> {
+    if (!this.wait) return Promise.resolve();
     return new Promise(resolve => {
       const timer = setInterval(() => {
         if (!this.wait) {
@@ -21,7 +21,8 @@ export class Discogs {
     })
   }
 
-  async rateLimit(headers: any) {
+  // deno-lint-ignore no-explicit-any
+  rateLimit(headers: any) {
     const quota = parseInt(headers.get('x-discogs-ratelimit'));
     const remaining = parseInt(headers.get('x-discogs-ratelimit-remaining'));
     console.log(`Remaining discogs quota ${remaining} / ${quota}`)
@@ -44,7 +45,7 @@ export class Discogs {
     return result.json();
   }
 
-  async search(artist: string, title: string) {
+  search(artist: string, title: string) {
     const url = new URL('/database/search', this.urlBase);
     const q = url.searchParams;
     // q.append('type', 'master');
