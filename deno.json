@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "process": "deno run --allow-read --allow-env --allow-net --allow-write ./process/album.ts data/album-of-the-week.csv"
+  }
+}
