@@ -1,29 +1,6 @@
 {
-  "name": "album-of-the-week",
-  "version": "0.0.0",
-  "description": "I'm listening to a new album each week",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "private": true,
   "scripts": {
-    "build": "npx tailwindcss -i ./src/style.css -o ./style.css",
-    "dev": "npx concurrently \"npm:watch\" \"npm:run\"",
-    "run": "npx site .",
-    "watch": "npm run build -- --watch",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gilesdring/album-of-the-week.git"
-  },
-  "author": "Giles Dring <giles@duck.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gilesdring/album-of-the-week/issues"
-  },
-  "homepage": "https://github.com/gilesdring/album-of-the-week#readme",
-  "devDependencies": {
-    "tailwindcss": "^3.0.24"
+    "build": "npx tailwindcss -i ./src/_tailwind/style.css -o ./src/style.css"
   }
 }
