@@ -12,7 +12,7 @@ site.ignore("node_modules");
 
 site.loadAssets([".css"]);
 
-for await (const dataFile of Deno.readDirSync('./data')) {
+for await (const dataFile of Deno.readDir('./data')) {
   if (dataFile.isFile) site.remoteFile(`/data/${dataFile.name}`, `./data/${dataFile.name}`);
 };
 site.copy("/data");
