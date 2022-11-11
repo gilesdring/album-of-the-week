@@ -1,5 +1,9 @@
 {
   "tasks": {
-    "process": "deno run --allow-read --allow-env --allow-net --allow-write ./process/album.ts data/album-of-the-week.csv"
-  }
+    "process": "deno run --allow-read --allow-env --allow-net --allow-write ./process/album.ts data/album-of-the-week.csv",
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A -",
+    "build": "deno task lume",
+    "serve": "deno task lume -s"
+  },
+  "importMap": "./import_map.json"
 }
