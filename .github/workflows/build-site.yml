@@ -1,4 +1,4 @@
-name: build-site
+name: Build site
 
 on:
   workflow_dispatch: {}
@@ -9,8 +9,7 @@ on:
     branches: [ main ]
     paths:
       - 'data/**'
-      - 'index.html'
-      - 'style.css'
+      - 'src/**'
       - '_config.js'
       - 'deno.json'
       - 'import_map.json'
