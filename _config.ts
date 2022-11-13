@@ -17,4 +17,7 @@ for await (const dataFile of Deno.readDir('./data')) {
 };
 site.copy("/data");
 
+site.copy("CNAME");
+site.copy(".nojekyll");
+
 export default site;
