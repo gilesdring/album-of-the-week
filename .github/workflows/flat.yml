@@ -1,4 +1,4 @@
-name: data
+name: Flat data
 on:
   schedule:
     - cron: 0 0 * * *
