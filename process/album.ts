@@ -1,5 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { readCSV, writeJSON } from 'https://deno.land/x/flat@0.0.15/mod.ts';
+import { Bandcamp } from '../lib/bandcamp.ts';
 import config from '../lib/config.ts';
 import { Discogs } from '../lib/discogs.ts';
 
@@ -15,9 +16,8 @@ type AlbumDetails = {
 const dropUndefined = (album: any) => Boolean(album.Artist);
 
 const parseAlbum = (album: any) => ({
+  ...Object.entries(album).reduce((a, [k, v]) => ({ ...a, [k.toLowerCase()]: v }), []),
   date: new Date(album.Date),
-  artist: album.Artist,
-  album: album.Album,
 })
 
 const albumsList = (await readCSV(filename)).filter(dropUndefined).map(parseAlbum);
@@ -38,17 +38,24 @@ async function getDiscogsData({ artist, album }: AlbumDetails) {
   }
   const masterIds = uniqueItems<string>(data.map((x: any) => x.master_id));
   const image = await discogs.getPrimaryImage(masterIds[0]);
-  return data.map((data: any) => (data ? { year: data.year, discogs_id: data.id, cover_image: image || data.cover_image, discogs_title: data.title } : undefined))[0];
+  return data.map((data: any) => (data ? { year: data.year, discogs_id: data.id, image: image || data.cover_image, discogs_title: data.title } : undefined))[0];
 }
 
 const dayString = (date: Date) => date.toISOString().split('T')[0];
 
-for (let i = 0; i < albumsList.length; i++) {
-  const discogsInfo = await getDiscogsData(albumsList[i]);
-  albumsList[i] = { ...albumsList[i], ...discogsInfo };
-  console.log(albumsList[i]);
-  const album = albumsList[i];
+const updatedAlbums: any[] = [];
+
+for (let album of albumsList) {
+  const bandcampInfo = album.bandcamp ? await (new Bandcamp(album.bandcamp)).details() : undefined;
+  const discogsInfo = await getDiscogsData(album);
+  album = {
+    ...album,
+    ...discogsInfo,
+    ...bandcampInfo,
+  };
+  console.log(album)
   await writeJSON(`data/${dayString(album.date)}.json`, album);
+  updatedAlbums.push(album);
 }
 
-await writeJSON(`data/album-of-the-week.json`, albumsList.map(d => ({ id: dayString(d.date), ...d })));
+await writeJSON(`data/album-of-the-week.json`, updatedAlbums.map(d => ({ id: dayString(d.date), ...d })));
