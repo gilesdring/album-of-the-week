@@ -12,18 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3
 
       - name: Setup deno
-        uses: denoland/setup-deno@v1.1.1
+        uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
       - name: Fetch data
         uses: githubocto/flat@v3
         with:
-          http_url: https://docs.google.com/spreadsheets/d/e/2PACX-1vTwWBoEAZTvoqqZ0IdLT4Dc0w47_6QQUJTqfdiIdn1UQ2f6azCTLpiYgbXL7FqhCwYczov2_lydYcqK/pub?gid=406046633&single=true&output=csv
-          downloaded_filename: data/album-of-the-week.csv
-          postprocess: ./process/album.ts
+          http_url: https://api.airtable.com/v0/appIYCWDFcW5z83x4/An%20Album%20A%20Week
+          authorization: Bearer ${{ secrets.AIRTABLE_TOKEN }}
+          downloaded_filename: data/album-of-the-week.raw.json
+          # postprocess: ./process/album.ts
         env:
           DISCOGS_TOKEN: ${{ secrets.DISCOGS_TOKEN }}
