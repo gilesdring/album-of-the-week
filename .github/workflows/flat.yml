@@ -22,9 +22,9 @@ jobs:
       - name: Fetch data
         uses: githubocto/flat@v3
         with:
-          http_url: https://api.airtable.com/v0/appIYCWDFcW5z83x4/An%20Album%20A%20Week
+          http_url: https://api.airtable.com/v0/appIYCWDFcW5z83x4/An%20Album%20A%20Week?sort%5B0%5D%5Bfield%5D=Date&sort%5B0%5D%5Bdirection%5D=desc
           authorization: Bearer ${{ secrets.AIRTABLE_TOKEN }}
           downloaded_filename: data/album-of-the-week.raw.json
-          # postprocess: ./process/album.ts
+          postprocess: ./process/prepare.ts
         env:
           DISCOGS_TOKEN: ${{ secrets.DISCOGS_TOKEN }}

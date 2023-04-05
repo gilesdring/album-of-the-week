@@ -1,1 +1,1 @@
-The data is downloaded from a Google Sheet that I maintain.
+The data is downloaded from an Airtable base that I maintain.
