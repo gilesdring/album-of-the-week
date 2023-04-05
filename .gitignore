@@ -1,4 +1,5 @@
 .env
+.env.fish
 node_modules/
 
 /_site
