@@ -1,12 +1,12 @@
 name: Flat data
 on:
-  schedule:
-    - cron: 0 0 * * *
+  # schedule:
+  #   - cron: 0 0 * * *
   workflow_dispatch: {}
-  push:
-    paths:
-      - .github/workflows/flat.yml
-      - ./process/album.ts
+  # push:
+  #   paths:
+  #     - .github/workflows/flat.yml
+  #     - ./process/album.ts
 jobs:
   scheduled:
     runs-on: ubuntu-latest
