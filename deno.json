@@ -1,9 +1,12 @@
 {
   "tasks": {
     "process": "deno run --allow-read --allow-env --allow-net --allow-write ./process/prepare.ts data/album-of-the-week.raw.json",
-    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A -",
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run -A -",
     "build": "deno task lume",
     "serve": "deno task lume -s"
   },
-  "importMap": "./import_map.json"
+  "imports": {
+    "lume/": "https://deno.land/x/lume@v3.1.2/"
+  },
+  "nodeModulesDir": "auto"
 }

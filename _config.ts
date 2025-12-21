@@ -10,7 +10,7 @@ site.use(base_path());
 
 site.ignore("node_modules");
 
-site.loadAssets([".css"]);
+site.add([".css"]);
 
 for await (const dataFile of Deno.readDir('./data')) {
   if (dataFile.isFile) site.remoteFile(`/data/${dataFile.name}`, `./data/${dataFile.name}`);
