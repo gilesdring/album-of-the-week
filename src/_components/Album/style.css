@@ -1,0 +1,5 @@
+[data-comp='Album'] {
+  &.hidden {
+    display: none;
+  }
+}

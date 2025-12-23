@@ -1,1 +1,0 @@
-The data is downloaded from an Airtable base that I maintain.
