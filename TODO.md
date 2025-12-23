@@ -1,0 +1,5 @@
+- [ ] Add CMS for albums
+- [ ] Host CMS for albums somewhere
+- [ ] Remove tailwind
+- [ ] Write script to get album image from bandcamp where possible
+- [ ] Write script to get album image from discogs
